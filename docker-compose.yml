@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: belko-server
-    ports:
-      - "3000:3000"           # expõe para debug/local, mas não obrigatório em prod
+    expose:
+      - "3000"           # expõe para debug/local, mas não obrigatório em prod
     environment:
       NODE_ENV:    production
       DATABASE_URL: ${DATABASE_URL}
