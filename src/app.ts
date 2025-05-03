@@ -11,7 +11,7 @@ import { calendarRoutes } from './modules/calendar/calendar.routes'
 export const app = Fastify({ logger: true })
 
 app.register(cors, {
-  origin: ['https://app.belko.com.br'],
+  origin: 'https://app.belko.com.br',
   credentials: true,
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
 })
