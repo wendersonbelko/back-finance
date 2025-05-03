@@ -11,18 +11,10 @@ import { calendarRoutes } from './modules/calendar/calendar.routes'
 export const app = Fastify({ logger: true })
 
 app.register(cors, {
-  origin: '*',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: [
-    'Content-Type',
-    'Authorization',
-    'X-Requested-With',
-    'Accept',
-    'Origin',
-    'User-Agent',
-  ],
-  
+  origin: (origin, cb) => cb(null, true), // ecoa o origin real
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true
 })
 
 app.register(authRoutes, { prefix: '/auth' })
