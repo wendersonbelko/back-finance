@@ -7,11 +7,25 @@ services:
       dockerfile: Dockerfile
     container_name: belko-server
     expose:
-      - "3000"           # expõe para debug/local, mas não obrigatório em prod
+      - "3000"             # Fastify ouve aqui dentro da rede
     environment:
-      NODE_ENV:    production
+      NODE_ENV:     production
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET:   ${JWT_SECRET}
+    networks:
+      - belko_net
+
+  nginx:
+    image: nginx:alpine
+    container_name: belko-backend-nginx
+    depends_on:
+      - server
+    ports:
+      - "80:80"            # HTTP público
+      - "443:443"          # HTTPS público
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro   # monte seus certs aqui
     networks:
       - belko_net
 
