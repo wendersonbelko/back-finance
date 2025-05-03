@@ -1,13 +1,20 @@
 version: '3.8'
+
 services:
   server:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: belko-server
     ports:
-      - "3000:3000"
+      - "3000:3000"           # expõe para debug/local, mas não obrigatório em prod
     environment:
-      NODE_ENV: production
+      NODE_ENV:    production
       DATABASE_URL: ${DATABASE_URL}
-      JWT_SECRET: ${JWT_SECRET}
-    restart: unless-stopped
+      JWT_SECRET:   ${JWT_SECRET}
+    networks:
+      - belko_net
+
+networks:
+  belko_net:
+    external: true
