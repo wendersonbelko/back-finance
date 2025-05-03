@@ -12,9 +12,8 @@ export const app = Fastify({ logger: true })
 
 app.register(cors, {
   origin: ['https://app.belko.com.br'],
+  credentials: true,
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization'],
-  credentials: true
 })
 
 app.register(authRoutes, { prefix: '/auth' })
